@@ -36,3 +36,8 @@ scheduled higher up in the tier hierarchy. Further, we plan to extend our analys
 
 
 > _We can only see a short distance ahead, but we can see plenty there that needs to be done._ **_~Alan Turing_**
+
+
+# Progress Report
+
+To begin with we have implemented a Nomad server process which just receives HTTP requests to run applications, shut down applications and re-provision running applications. We chose Nomad because of the ease of use and its ability to dynamically re-provision running applications. This feature will allow us to test various policies efficiently. Further, we developed some mock applications that will do some processing work (such as matrix multiplication, file I/O) to consume allotted resources and will log each request comming to them from clients. Finally, we developed a simple scheduler which will read the application requirements from a database and send deployment requests to the nomad server. The mock application will periodically send its statistics such as resources consumed and requests served to the server running the scheduler. Based on policy decisions, the scheduler can then decide whether to let the application run on its current tier or move to another tier. Moreover, in order to simplfy the 'mechanism' or the implementation part we have a table containing the current IP address of the applications so that the routing process is simplified. We now aim to compare and contrast different policy decisions using this implementation. 
