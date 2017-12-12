@@ -1,12 +1,15 @@
 FROM python:3.6.3
 
-ADD server.py /server.py
-ADD requirements.txt /requirements.txt
-RUN mkdir /files
+RUN mkdir /app
+ADD requirements.txt /app/requirements.txt
+RUN mkdir /app/files
 
+WORKDIR /app
 RUN pip install -r requirements.txt
 ENV FLASK_APP server.py
-EXPOSE 5000
 
-ENTRYPOINT ["flask", "run", "-h", "0.0.0.0", "-p", "5000"]
+ADD server.py /app/server.py
+ADD run.sh /app/run.sh
+
+ENTRYPOINT ["/bin/bash", "/app/run.sh"]
 
